@@ -4,14 +4,14 @@ import java.util.Date
 
 internal data class Post
 internal constructor(
-    val id: Long,
-    val ownerId: Long,
-    val fromId: Long,
-    val createdBy: Long,
+    val id: Int,
+    val ownerId: Int,
+    val fromId: Int,
+    val createdBy: Int,
     val date: Date,
     val text: String,
-    val replayOwnerId: Long,
-    val replayPostId: Long,
+    val replayOwnerId: Int,
+    val replayPostId: Int,
     val friendsOnly: Boolean,
     val comments: CommentPost,
     val copyright: String,
@@ -19,12 +19,12 @@ internal constructor(
     val reposts: Repost,
     val views: ViewPost,
     val postType: String,
-    val signerId: Long,
+    val signerId: Int,
     val canPin: Boolean,
     val canEdit: Boolean,
     val isPinned: Boolean,
     val markedAsAds: Boolean,
-    val postponedId: Long
+    val postponedId: Int
 ) {
 
 
