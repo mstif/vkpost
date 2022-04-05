@@ -20,5 +20,9 @@ internal object WallService {
         }
         return false
     }
+    fun clear(){
+        maxPostId = 0
+        posts = emptyArray<Post>()
+    }
 
 }

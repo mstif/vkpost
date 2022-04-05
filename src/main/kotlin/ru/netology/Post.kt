@@ -25,8 +25,4 @@ internal constructor(
     val markedAsAds: Boolean = false,
     val postponedId: Int = 0,
     val id: Int = 0
-) {
-
-
-
-}
+)

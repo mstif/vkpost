@@ -7,6 +7,3 @@ internal  data class Like(
     val canClose:Boolean = false,
     val canOpen:Boolean = false
     )
-{
-
-}

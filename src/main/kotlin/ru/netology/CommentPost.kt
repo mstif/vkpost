@@ -6,7 +6,4 @@ internal constructor(
     val groupsCanPost: Boolean = false,
     val canClose: Boolean = false,
     val canOpen: Boolean = false
-) {
-
-
-}
+)

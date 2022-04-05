@@ -3,13 +3,41 @@ package ru.netology
 import org.junit.Assert
 import org.junit.Test
 
-import org.junit.Assert.*
-
 class WallServiceTest {
 
     @Test
     fun update_Error() {
         val result = WallService.update(Post())
+        Assert.assertEquals(false, result)
+    }
+
+    @Test
+    fun add_Post() {
+        val result = WallService.add(Post(text = "Это пост №1")).id
+
+        //val result = WallService.update(Post())
+        Assert.assertNotEquals(0, result)
+    }
+
+    @Test
+    fun update_Post_exist() {
+        WallService.clear()
+        val post1 = WallService.add(Post(text = "Это пост №1"))
+        val post2 = WallService.add(Post(text = "Это пост №2"))
+        val post3 = WallService.add(Post(text = "Это пост №3"))
+        val postUpdating = post2.copy(text = "Обновляющий пост")
+        val result = WallService.update(postUpdating)
         Assert.assertEquals(true, result)
+    }
+
+    @Test
+    fun update_Post_notexist() {
+        WallService.clear()
+        val post1 = WallService.add(Post(text = "Это пост №1"))
+        val post2 = WallService.add(Post(text = "Это пост №2"))
+        val post3 = WallService.add(Post(text = "Это пост №3"))
+        val postUpdating = Post(text = "Обновляющий пост")
+        val result = WallService.update(postUpdating)
+        Assert.assertEquals(false, result)
     }
 }
