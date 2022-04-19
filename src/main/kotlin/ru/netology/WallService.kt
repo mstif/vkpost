@@ -11,6 +11,23 @@ internal object WallService {
         return posts.last()
     }
 
+    fun addAttachmentToPost(attachment:Attachment,post: Post):Post{
+        var attachmentsCopy = post.attachments?: emptyArray<Attachment>() + attachment
+        val postCopy: Post = post.copy(attachments = attachmentsCopy)
+        update(postCopy)
+        return postCopy
+    }
+    fun displayAttachment(attachment: Attachment){
+        when(attachment.type){
+            TypeAttachment.Photo -> (attachment as PhotoAttachment).photo.displayPhoto()
+            TypeAttachment.Video -> (attachment as VideoAttachment).video.displayVideo()
+            TypeAttachment.Audio -> (attachment as AudioAttachment).audio.displayAudio()
+            TypeAttachment.Doc -> (attachment as DocAttachment).doc.displayDoc()
+            TypeAttachment.Link -> (attachment as LinkAttachment).link.displayLink()
+        }
+
+
+    }
     fun update(post: Post): Boolean {
         for ((index, itemPost) in posts.withIndex()) {
             if (itemPost.id == post.id) {
@@ -25,4 +42,7 @@ internal object WallService {
         posts = emptyArray<Post>()
     }
 
+    fun displayPostFields(post: Post){
+        println(post);
+    }
 }
