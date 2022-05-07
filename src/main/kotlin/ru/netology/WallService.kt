@@ -3,6 +3,27 @@ package ru.netology
 internal object WallService {
     private var posts = emptyArray<Post>()
     private var maxPostId: Int = 0
+    private var comments: Array<Comment> = emptyArray<Comment>()
+
+    fun createComment(comment: Comment) {
+        for (itemPost in posts) {
+            if (itemPost.id == comment.postId) {
+                comments += comment
+                return
+            }
+        }
+        throw PostNotFoundExeption("Not found post ${comment.postId}")
+    }
+
+    fun getCommentsOfPost(postId: Int): Array<Comment> {
+        var result: Array<Comment> = emptyArray()
+        for (itemComment in comments) {
+            if (itemComment.postId == postId) {
+                result += itemComment
+            }
+        }
+        return result
+    }
 
     fun add(post: Post): Post {
         maxPostId++
@@ -11,14 +32,15 @@ internal object WallService {
         return posts.last()
     }
 
-    fun addAttachmentToPost(attachment:Attachment,post: Post):Post{
-        var attachmentsCopy = post.attachments?: emptyArray<Attachment>() + attachment
+    fun addAttachmentToPost(attachment: Attachment, post: Post): Post {
+        val attachmentsCopy = post.attachments ?: (emptyArray<Attachment>() + attachment)
         val postCopy: Post = post.copy(attachments = attachmentsCopy)
         update(postCopy)
         return postCopy
     }
-    fun displayAttachment(attachment: Attachment){
-        when(attachment.type){
+
+    fun displayAttachment(attachment: Attachment) {
+        when (attachment.type) {
             TypeAttachment.Photo -> (attachment as PhotoAttachment).photo.displayPhoto()
             TypeAttachment.Video -> (attachment as VideoAttachment).video.displayVideo()
             TypeAttachment.Audio -> (attachment as AudioAttachment).audio.displayAudio()
@@ -28,6 +50,7 @@ internal object WallService {
 
 
     }
+
     fun update(post: Post): Boolean {
         for ((index, itemPost) in posts.withIndex()) {
             if (itemPost.id == post.id) {
@@ -37,12 +60,18 @@ internal object WallService {
         }
         return false
     }
-    fun clear(){
+
+    fun clear() {
         maxPostId = 0
         posts = emptyArray<Post>()
+        comments = emptyArray()
     }
 
-    fun displayPostFields(post: Post){
-        println(post);
+    fun displayPostFields(post: Post) {
+        println(post)
     }
+
+
 }
+
+class PostNotFoundExeption(message: String) : RuntimeException(message)
