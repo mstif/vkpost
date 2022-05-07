@@ -1,10 +1,10 @@
 package ru.netology
 
-interface Attachment {
-    val type: TypeAttachment
-    val id: Int
-    val albumId: Int
-    val ownerId: Int
-    val userId: Int
-
+abstract class Attachment(
+    val id: Int = 0,
+    val albumId: Int = 0,
+    val ownerId: Int = 0,
+    val userId: Int = 0
+) {
+    abstract val type: TypeAttachment
 }
